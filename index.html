@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - ເຢີມົວ (Yermoua)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Lao', sans-serif;
+        }
+
+        body {
+            background-color: #080d1a;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Micro Snowfall Canvas Background */
+        #snowCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(3, 7, 17, 0.98) 0%, rgba(5, 10, 22, 0.85) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            max-width: 1400px;
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #38bdf8;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 130px 5% 50px;
+            position: relative;
+            z-index: 2;
+            gap: 70px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        /* Typing Effect Container */
+        .typing-container {
+            min-height: 150px;
+            line-height: 1.25;
+        }
+
+        .typing-greeting {
+            color: #38bdf8;
+            font-size: 1rem;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .typing-name {
+            font-size: 2.7rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .typing-role {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #94a3b8;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Cursor */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 2rem;
+            background-color: #38bdf8;
+            vertical-align: middle;
+            margin-left: 6px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Fly-in Animation for Description & Primary Buttons */
+        .fly-in {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .fly-in.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .description {
+            color: #94a3b8;
+            margin-top: 15px;
+            font-size: 0.95rem; 
+            line-height: 1.7;
+            max-width: 700px; 
+        }
+
+        /* Button Groups */
+        .btn-row {
+            display: flex;
+            gap: 14px;
+            margin-top: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 26px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0369a1;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #334155;
+            color: #e2e8f0;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            border-color: #38bdf8;
+            color: #38bdf8;
+            transform: translateY(-2px);
+        }
+
+        /* Initial Vote Section */
+        .initial-actions {
+            margin-top: 18px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-vote {
+            background: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-vote:hover {
+            background-color: #0369a1;
+        }
+
+        .vote-count-badge {
+            border: 1.5px solid #334155;
+            color: #ffffff;
+            padding: 7px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Profile Image Ring Outer Frame */
+        .hero-img-wrapper {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .hero-img-ring {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            padding: 6px;
+            background: linear-gradient(145deg, #38bdf8 0%, #0284c7 40%, rgba(8, 13, 26, 0.8) 100%);
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #1e293b;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 30px;
+                padding: 120px 5% 40px;
+            }
+            .btn-row, .initial-actions {
+                justify-content: center;
+            }
+            .hero-img-wrapper {
+                width: 270px;
+                height: 270px;
+            }
+            .typing-name {
+                font-size: 2.2rem;
+            }
+            .typing-role {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Micro Snowfall Canvas Background -->
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">YM KERMOUA</div>
+        <nav>
+            <a href="#home" class="active">ໜ້າຫຼັກ</a>
+            <a href="#about">ກ່ຽວກັບຂ້ອຍ</a>
+            <a href="#skills">ທັກສະ</a>
+            <a href="#projects">ຜົນງານ</a>
+            <a href="#contact">ຕິດຕໍ່</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            
+            <!-- Typewriter Container -->
+            <div class="typing-container">
+                <span id="typedText"></span>
+            </div>
+
+            <!-- Fly-in Content (Description & Main Buttons) -->
+            <div class="fly-in" id="flyInContent">
+                <p class="description">
+                    ນັກສຶກສາປີທີ 3 ຈາກມະຫາວິທະຍາໄລແຫ່ງຊາດ, ຄະນະວິທະຍາສາດທຳມະຊາດ, ພາກວິຊາວິທະຍາສາດຄອມພິວເຕີ.<br>
+                    ມີຄວາມມຸ່ງໝັ້ນໃນການພັດທະນາເວັບໄຊ ແລະ ແອັບພລິເຄຊັນ ທີ່ທັນສະໄໝ ໂດຍໃຊ້ເຕັກໂນໂລຊີລ້າສຸດ.
+                </p>
+
+                <div class="btn-row">
+                    <a href="#projects" class="btn btn-primary">ເບິ່ງຜົນງານ</a>
+                    <a href="#contact" class="btn btn-outline">ດາວໂຫຼດ CV</a>
+                </div>
+            </div>
+
+            <!-- Initial Action Buttons (Vote at the bottom) -->
+            <div class="initial-actions">
+                <button class="btn-vote" id="voteBtn">ໃຫ້ຄະແນນບໍລິການ ✍️</button>
+                <div class="vote-count-badge"><span id="voteCount">0</span> votes</div>
+            </div>
+        </div>
+
+        <!-- Profile Frame -->
+        <div class="hero-img-wrapper">
+            <div class="hero-img-ring">
+                <img src="Image/Mypicture.jpg" alt="ເຢີມົວ (Yermoua)" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        /* Typewriter Script */
+        const textSequence = [
+            { text: "ສະບາຍດີ, ຂ້ອຍຊື່", class: "typing-greeting" },
+            { text: "ເຢີມົວ (Yermoua)", class: "typing-name" },
+            { text: "Full Stack Developer", class: "typing-role" }
+        ];
+
+        const typedContainer = document.getElementById("typedText");
+        const flyInContent = document.getElementById("flyInContent");
+        const cursor = document.createElement("span");
+        cursor.className = "cursor";
+
+        let seqIndex = 0;
+        let charIndex = 0;
+        let currentSpan = null;
+
+        function typeNextChar() {
+            if (seqIndex < textSequence.length) {
+                const currentSeq = textSequence[seqIndex];
+
+                if (charIndex === 0) {
+                    currentSpan = document.createElement("span");
+                    currentSpan.className = currentSeq.class;
+                    typedContainer.appendChild(currentSpan);
+                    currentSpan.appendChild(cursor);
+                }
+
+                let char = currentSeq.text.charAt(charIndex);
+                currentSpan.insertBefore(document.createTextNode(char), cursor);
+
+                charIndex++;
+
+                if (charIndex < currentSeq.text.length) {
+                    setTimeout(typeNextChar, 70);
+                } else {
+                    seqIndex++;
+                    charIndex = 0;
+                    setTimeout(typeNextChar, 180);
+                }
+            } else {
+                flyInContent.classList.add("show");
+            }
+        }
+
+        /* Micro Snowflakes Script */
+        function initSnow() {
+            const canvas = document.getElementById("snowCanvas");
+            const ctx = canvas.getContext("2d");
+
+            let width = (canvas.width = window.innerWidth);
+            let height = (canvas.height = window.innerHeight);
+
+            window.addEventListener("resize", () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const numFlakes = 100;
+            const flakes = [];
+
+            for (let i = 0; i < numFlakes; i++) {
+                flakes.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.2 + 0.4,
+                    speed: Math.random() * 0.6 + 0.3,
+                    opacity: Math.random() * 0.7 + 0.2,
+                    swing: Math.random() * 0.02
+                });
+            }
+
+            function drawSnow() {
+                ctx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < flakes.length; i++) {
+                    const f = flakes[i];
+                    ctx.beginPath();
+                    ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
+                    ctx.fill();
+
+                    f.y += f.speed;
+                    f.x += Math.sin(f.y * f.swing) * 0.3;
+
+                    if (f.y > height) {
+                        f.y = -5;
+                        f.x = Math.random() * width;
+                    }
+                }
+                requestAnimationFrame(drawSnow);
+            }
+
+            drawSnow();
+        }
+
+        /* Vote Counter */
+        let votes = 0;
+        document.getElementById("voteBtn").addEventListener("click", () => {
+            votes++;
+            document.getElementById("voteCount").textContent = votes;
+        });
+
+        window.onload = () => {
+            typeNextChar();
+            initSnow();
+        };
+    </script>
+</body>
+</html>
